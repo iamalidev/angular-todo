@@ -1,0 +1,21 @@
+<h1>TODO LIST 📝</h1>
+<main class="todo">
+  <section class="todo-section">
+    <mat-form-field class="task-input">
+      <mat-label>Add your task</mat-label>
+      <input matInput #todoText (keyup.enter)="addTask(todoText.value); todoText.value = ''">
+    </mat-form-field>
+    <button class="add-btn" mat-flat-button (click)="addTask(todoText.value); todoText.value = ''">Add</button>
+  </section>
+  <ul class="todo-list">
+    @for (todoItem of todoList; track todoItem.id) {
+      <li class="task" [ngClass]="{'completed': todoItem.completed}">
+        <mat-checkbox [checked]="todoItem.completed" (click)="toggleCompleted(todoItem.id)"></mat-checkbox>
+        <span class="task-text" [class.completed]="todoItem.completed">{{ todoItem.task }}</span>
+        <button class="delete-btn" mat-icon-button (click)="deleteTask(todoItem.id)"><mat-icon>delete_outline</mat-icon></button>
+      </li>
+    } @empty {
+      <p>Currently empty :(</p>
+    }
+  </ul>
+</main>
